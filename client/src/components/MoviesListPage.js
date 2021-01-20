@@ -30,7 +30,7 @@ const MoviesListPage = () => {
 
   return (
     <div className="callout">
-      Featured Films
+      <h1>Featured Films</h1>
       {movieTileComponents}
     </div>
   )

@@ -16,8 +16,12 @@ actorsRouter.get("/", async (req, res) => {
 })
 
 actorsRouter.get("/:id", async (req, res) => {
+  const actorsId = req.params.id
+
   try {
-    const actor = { movies: [] }
+    const actor = await Actor.query().findById(actorsId)
+    actor.movies = await actor.$relatedQuery("movies")
+    // const actor = { movies: [] }
     return res.status(200).json({ actor: actor })
   } catch (error) {
     return res.status(500).json({ errors: error })
