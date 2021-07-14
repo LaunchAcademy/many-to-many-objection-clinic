@@ -9,12 +9,12 @@ import Casting from "../models/Casting.js"
 class Seeder {
   static async seed() {
     console.log("seeding...")
-    const faceOff = await Movie.query().insert({ title: "Face Off" })
-    const pulpFiction = await Movie.query().insert({ title: "Pulp Fiction" })
-    const avengers = await Movie.query().insert({ title: "The Avengers" })
+    const faceOff = await Movie.query().insertAndFetch({ title: "Face / Off" })
+    const pulpFiction = await Movie.query().insertAndFetch({ title: "Pulp Fiction" })
+    const avengers = await Movie.query().insertAndFetch({ title: "The Avengers" })
 
-    const travolta = await Actor.query().insert({ firstName: "John", lastName: "Travolta" })
-    const jackson = await Actor.query().insert({ firstName: "Samuel", lastName: "Jackson" })
+    const travolta = await Actor.query().insertAndFetch({ firstName: "John", lastName: "Travolta" })
+    const jackson = await Actor.query().insertAndFetch({ firstName: "Samuel", lastName: "Jackson" })
 
     await faceOff.$relatedQuery("actors").insert({ firstName: "Nicolas", lastName: "Cage" })
     await faceOff.$relatedQuery("actors").relate(travolta)
