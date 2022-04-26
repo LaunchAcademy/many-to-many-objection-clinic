@@ -12,9 +12,12 @@ class Seeder {
     const faceOff = await Movie.query().insert({ title: "Face Off" })
     const pulpFiction = await Movie.query().insert({ title: "Pulp Fiction" })
     const avengers = await Movie.query().insert({ title: "The Avengers" })
+    const manOnTheMoon = await Movie.query().insert({ title: "Man on the Moon" })
+    const mask = await Movie.query().insert({ title: "The Mask" })
 
     const travolta = await Actor.query().insert({ firstName: "John", lastName: "Travolta" })
     const jackson = await Actor.query().insert({ firstName: "Samuel", lastName: "Jackson" })
+    const carrey = await Actor.query().insert({ firstName: "Jim", lastName: "Carrey" })
 
     await faceOff.$relatedQuery("actors").insert({ firstName: "Nicolas", lastName: "Cage" })
     await faceOff.$relatedQuery("actors").relate(travolta)
@@ -26,6 +29,13 @@ class Seeder {
     await avengers.$relatedQuery("actors").insert({ firstName: "Chris", lastName: "Evans" })
     await avengers.$relatedQuery("actors").insert({ firstName: "Scarlett", lastName: "Johansson" })
     await avengers.$relatedQuery("actors").relate(jackson)
+
+    await mask.$relatedQuery("actors").insert({ firstName: "Cameron", lastName: "Diaz" })
+    await mask.$relatedQuery("actors").relate(carrey)
+
+    await manOnTheMoon.$relatedQuery("actors").insert({ firstName: "Danny", lastName: "DeVito" })
+    await manOnTheMoon.$relatedQuery("actors").insert({ firstName: "Courtney", lastName: "Love" })
+    await manOnTheMoon.$relatedQuery("actors").relate(carrey)
 
     console.log("Done!")
     await connection.destroy()
