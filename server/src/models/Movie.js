@@ -16,7 +16,7 @@ class Movie extends Model {
   }
 
   static get relationMappings() {
-    const { Actor, Casting, Review } = require("./index.js")
+    const { Actor, Casting, Review, Genre } = require("./index.js")
 
     return {
       actors: {
@@ -45,6 +45,14 @@ class Movie extends Model {
         join: {
           from: "movies.id",
           to: "reviews.movieId"
+        }
+      },
+      genre: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Genre,
+        join: {
+          from: "movies.genreId",
+          to: "genres.id"
         }
       }
     }

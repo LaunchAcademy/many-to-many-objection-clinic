@@ -5,6 +5,8 @@ import MoviesListPage from "./MoviesListPage.js"
 import MovieShowPage from "./MovieShowPage.js"
 import ActorShowPage from "./ActorShowPage.js"
 import ActorsListPage from "./ActorsListPage.js"
+import GenresListPage from "./GenresListPage.js"
+import GenreShowPage from "./GenreShowPage.js"
 
 import { hot } from "react-hot-loader/root"
 
@@ -14,7 +16,8 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={MoviesListPage} />
+        <Route exact path="/" component={GenresListPage} />
+        <Route exact path="/genres/:id" component={GenreShowPage} />
         <Route exact path="/actors" component={ActorsListPage} />
         <Route exact path="/actors/:id" component={ActorShowPage} />
         <Route exact path="/movies" component={MoviesListPage} />
