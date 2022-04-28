@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import GenresTile from "./GenresTile.js"
+import GenreTile from "./GenreTile.js"
 
 const GenresListPage = () => {
   const [genres, setGenres] = useState([])
@@ -24,14 +24,14 @@ const GenresListPage = () => {
     getGenres()
   }, [])
 
-  const genresTileComponents = genres.map((genresObject) => {
-    return <GenresTile key={genresObject.id} {...genresObject} />
+  const genreTileComponents = genres.map((genresObject) => {
+    return <GenreTile key={genresObject.id} {...genresObject} />
   })
 
   return (
     <div className="callout">
       <h1>Genres:</h1>
-      {genresTileComponents}
+      {genreTileComponents}
     </div>
   )
 }

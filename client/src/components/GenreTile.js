@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-const GenresTile = ({ name, id }) => {
+const GenreTile = ({ name, id }) => {
   return (
     <li className="callout">
       <Link to={`/genres/${id}`}>
@@ -11,4 +11,4 @@ const GenresTile = ({ name, id }) => {
   )
 }
 
-export default GenresTile
+export default GenreTile

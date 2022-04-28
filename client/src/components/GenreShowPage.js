@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import MovieTile from "./MovieTile.js"
+import MovieGenreTile from "./MovieGenreTile.js"
 
 const GenreShowPage = (props) => {
   const [genre, setGenre] = useState({ movies: [] })
@@ -26,8 +26,8 @@ const GenreShowPage = (props) => {
     getGenre()
   }, [])
 
-  const movieTileComponents = genre.movies.map((movieObject) => {
-    return <MovieTile key={movieObject.id} {...movieObject} />
+  const movieGenreTileComponents = genre.movies.map((movieObject) => {
+    return <MovieGenreTile key={movieObject.id} {...movieObject} />
   })
 
   return (
@@ -35,7 +35,7 @@ const GenreShowPage = (props) => {
       <h1>
         {genre.name}
       </h1>
-      {movieTileComponents}
+      {movieGenreTileComponents}
     </div>
   )
 }
