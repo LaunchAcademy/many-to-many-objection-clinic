@@ -73,6 +73,7 @@ const MovieShowPage = (props) => {
   return (
     <div className="callout">
       <h1>{movie.title}</h1>
+      <h3>{movie.releaseYear}</h3>
       <h2>Starring:</h2>
       {actorTileComponents}
       <div>
