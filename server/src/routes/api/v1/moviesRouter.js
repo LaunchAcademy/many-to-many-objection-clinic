@@ -5,6 +5,8 @@ import { Movie } from "../../../models/index.js"
 
 import movieReviewsRouter from "./movieReviewsRouter.js"
 
+import MovieSerializer from "../../../serializers/MovieSerializer.js"
+
 const moviesRouter = new express.Router()
 
 moviesRouter.use("/:movieId/reviews", movieReviewsRouter)
@@ -12,9 +14,9 @@ moviesRouter.use("/:movieId/reviews", movieReviewsRouter)
 moviesRouter.get("/", async (req, res) => {
   try {
     const movies = await Movie.query()
-    return res.status(200).json({ movies: movies })
+    const serializedMovies = movies.map(movie => MovieSerializer.getSummary(movie))
+    return res.status(200).json({ movies: serializedMovies })
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ errors: error })
   }
 })
@@ -22,11 +24,9 @@ moviesRouter.get("/", async (req, res) => {
 moviesRouter.get("/:id", async (req, res) => {
   try {
     const movie = await Movie.query().findById(req.params.id)
-    movie.actors = await movie.$relatedQuery("actors")
-    movie.reviews = await movie.$relatedQuery("reviews")
-    return res.status(200).json({ movie: movie })
+    const serializedMovie = await MovieSerializer.getSummaryWithActorsAndReviews(movie)
+    return res.status(200).json({ movie: serializedMovie })
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ errors: error })
   }
 })
