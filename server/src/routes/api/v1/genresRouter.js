@@ -3,15 +3,12 @@ import objection from "objection"
 
 import { Genre } from "../../../models/index.js"
 
-import GenreSerializer from "../../../../serializers/genreSerializer.js"
-
 const genresRouter = new express.Router()
 
 genresRouter.get("/", async (req, res) => {
   try {
     const genres = await Genre.query()
-    const serializedGenres = genres.map(genre => GenreSerializer.getSummary(genre))
-    return res.status(200).json({ genres: serializedGenres })
+    return res.status(200).json({ genres: genres })
   } catch (error) {
     console.log(error)
     return res.status(500).json({ errors: error })
@@ -21,9 +18,14 @@ genresRouter.get("/", async (req, res) => {
 genresRouter.get("/:id", async (req, res) => {
   try {
     const genre = await Genre.query().findById(req.params.id)
-    const serializedGenre = await GenreSerializer.getSummaryWithMovies(genre)
+    const movies = await genre.$relatedQuery("movies")
+    for (const movie of movies) {
+      const actors = await movie.$relatedQuery("actors")
+      movie.actors = actors
+    }
+    genre.movies = movies
 
-    return res.status(200).json({ genre: serializedGenre })
+    return res.status(200).json({ genre: genre })
   } catch (error) {
     console.log(error)
     return res.status(500).json({ errors: error })
