@@ -10,7 +10,6 @@ genresRouter.get("/", async (req, res) => {
     const genres = await Genre.query()
     return res.status(200).json({ genres: genres })
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ errors: error })
   }
 })
@@ -27,7 +26,6 @@ genresRouter.get("/:id", async (req, res) => {
 
     return res.status(200).json({ genre: genre })
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ errors: error })
   }
 })

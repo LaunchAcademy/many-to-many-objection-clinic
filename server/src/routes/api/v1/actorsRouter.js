@@ -10,7 +10,6 @@ actorsRouter.get("/", async (req, res) => {
     const actors = await Actor.query()
     return res.status(200).json({ actors: actors })
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ errors: error })
   }
 })
