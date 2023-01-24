@@ -16,6 +16,8 @@ class Seeder {
     const travolta = await Actor.query().insert({ firstName: "John", lastName: "Travolta" })
     const jackson = await Actor.query().insert({ firstName: "Samuel", lastName: "Jackson" })
 
+    // await Casting.query().insert({ movieId: 1, actor:1 })
+
     await faceOff.$relatedQuery("actors").insert({ firstName: "Nicolas", lastName: "Cage" })
     await faceOff.$relatedQuery("actors").relate(travolta)
 
