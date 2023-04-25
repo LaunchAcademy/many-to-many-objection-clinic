@@ -5,31 +5,14 @@ class Movie extends Model {
     return "movies"
   }
 
-  static get jsonSchema() {
-    return {
-      type: "object",
-      required: ["title"],
-      properties: {
-        title: { type: "string" }
-      }
-    }
-  }
 
   static get relationMappings() {
-    const { Casting, Actor } = require("./index")
-    
+    const { Actor } = require("./index.js")
+
     return {
-      castings: {
-        relation: Model.HasManyRelation,
-        modelClass: Casting,
-        join: {
-          from: "movies.id",
-          to: "castings.movieId"
-        }
-      },
       actors: {
         relation: Model.ManyToManyRelation,
-        modelClass: Actor,
+        modelClass: Actor, 
         join: {
           from: "movies.id",
           through: {
@@ -38,6 +21,16 @@ class Movie extends Model {
           },
           to: "actors.id"
         }
+      }
+    }
+  }
+
+  static get jsonSchema() {
+    return {
+      type: "object",
+      required: ["title"],
+      properties: {
+        title: { type: "string" }
       }
     }
   }

@@ -10,12 +10,7 @@ moviesRouter.get("/", async (req, res) => {
   try {
     const movies = await Movie.query()
 
-    // will not have createdAt and updatedAt
-    const serializedMovies = movies.map(movieRecord => {
-      return MovieSerializer.getSummary(movieRecord)
-    })
-
-    return res.status(200).json({ movies: serializedMovies })
+    return res.status(200).json({ movies: movies })
   } catch (error) {
     console.log(error)
     return res.status(500).json({ errors: error })
@@ -24,13 +19,10 @@ moviesRouter.get("/", async (req, res) => {
 
 moviesRouter.get("/:id", async (req, res) => {
   try {
-    const movieId = req.params.id
-    const movie = await Movie.query().findById(movieId)
-
-    const serializedMovie = await MovieSerializer.getInfoForShow(movie)
-
-
-    return res.status(200).json({ movie: serializedMovie })
+    const id = req.params.id 
+    const movie = await Movie.query().findById(id)
+    movie.actors = await movie.$relatedQuery("actors")
+    return res.status(201).json({ movie })
   } catch (error) {
     console.log(error)
     return res.status(500).json({ errors: error })
