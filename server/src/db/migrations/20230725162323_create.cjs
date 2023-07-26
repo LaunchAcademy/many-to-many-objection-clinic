@@ -9,10 +9,8 @@ exports.up = async (knex) => {
     return knex.schema.createTable("castings", (table) => {
         table.bigIncrements("id")
         table.string("characterName")
-
-        table.bigInteger("movieId").notNullable().index().unsigned().references("movies.id")
-        table.bigInteger("actorId").notNullable().index().unsigned().references("actors.id")
-
+        table.bigInteger("actorId").notNullable().unsigned().index().references("actors.id")
+        table.bigInteger("movieId").notNullable().unsigned().index().references("movies.id")
         table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
         table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
     })
@@ -21,4 +19,6 @@ exports.up = async (knex) => {
 /**
  * @param {Knex} knex
  */
-exports.down = async (knex) => {};
+exports.down = async (knex) => {
+    return knex.schema.dropTableIfExists("castings")
+};

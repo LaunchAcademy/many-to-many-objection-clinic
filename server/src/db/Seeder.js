@@ -19,6 +19,8 @@ class Seeder {
     // await Casting.query().insert({ movieId: 1, actor:1 })
 
     await faceOff.$relatedQuery("actors").insert({ firstName: "Nicolas", lastName: "Cage" })
+
+
     await faceOff.$relatedQuery("actors").relate(travolta)
 
     await pulpFiction.$relatedQuery("actors").insert({ firstName: "Uma", lastName: "Thurman" })

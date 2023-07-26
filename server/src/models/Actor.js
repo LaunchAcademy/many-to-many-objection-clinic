@@ -17,12 +17,12 @@ class Actor extends Model {
   }
 
   static get relationMappings() {
-    const { Movie } = require("./index.js")
+    const { Movie, Casting } = require("./index.js")
 
     return {
       movies: {
-        relation: Model.ManyToManyRelation,
         modelClass: Movie,
+        relation: Model.ManyToManyRelation,
         join: {
           from: "actors.id",
           through: {
@@ -31,6 +31,15 @@ class Actor extends Model {
           },
           to: "movies.id"
         }
+      },
+      castings: {
+        modelClass: Casting,
+        relation: Model.HasManyRelation,
+        join: {
+          from: "actors.id",
+          to: "castings.actorId"
+        }
+
       }
     }
   }

@@ -2,7 +2,7 @@ import express from "express"
 import objection from "objection"
 
 import { Movie } from "../../../models/index.js"
-import MovieSerializer from "../../../serializers/movieSerializer.js"
+// import MovieSerializer from "../../../serializers/movieSerializer.js"
 
 const moviesRouter = new express.Router()
 
@@ -22,6 +22,7 @@ moviesRouter.get("/:id", async (req, res) => {
     const id = req.params.id 
     const movie = await Movie.query().findById(id)
     movie.actors = await movie.$relatedQuery("actors")
+
     return res.status(201).json({ movie })
   } catch (error) {
     console.log(error)

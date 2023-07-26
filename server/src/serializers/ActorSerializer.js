@@ -1,31 +1,32 @@
-
-// import MovieSerializer from "./MovieSerializer.js"
-
 class ActorSerializer {
     static getSummaryForList(arrayOfActors){
-        // designate what are the required/whitelisted fields
+
         const requiredFields = ["id", "firstName", "lastName"]
 
-        const serializedActors = arrayOfActors.map((originalActorObject) => {
-            let serializedActor = {}
-            for(const field of requiredFields) {
-                serializedActor[field] = originalActorObject[field]
+        const serializedActors = arrayOfActors.map(actorObject => {
+            const serializedActor = {}
+
+            for (let field of requiredFields) {
+                serializedActor[field] = actorObject[field]
             }
+
             return serializedActor
         })
+
         return serializedActors
     }
 
-    static async getDetailsForShow(actorObject){
+    static async getDetailsForShow(actor){
 
-        const whitelistedAttributes = ["firstName", "lastName"]
-        let serializedActor = {}
-        whitelistedAttributes.forEach((attributeString) => {
-            serializedActor[attributeString] = actorObject[attributeString]
+        const whiteListedFields = ["id", "firstName", "lastName"]
+        const serializedActor = {}
+
+        whiteListedFields.forEach((field) => {
+            serializedActor[field] = actor[field]
         })
 
-        const movies = await actorObject.$relatedQuery("movies")
-        serializedActor.movies = MovieSerializer.getSummaryForActorShow(movies)
+        serializedActor.movies = await actor.$relatedQuery("movies")
+
 
         return serializedActor
     }
