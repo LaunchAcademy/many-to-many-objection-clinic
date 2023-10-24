@@ -1,5 +1,4 @@
 import express from "express"
-import objection from "objection"
 
 import { Genre } from "../../../models/index.js"
 
@@ -10,7 +9,9 @@ const genresRouter = new express.Router()
 genresRouter.get("/", async (req, res) => {
   try {
     const genres = await Genre.query()
-    const serializedGenres = genres.map(genre => GenreSerializer.getSummary(genre))
+    const serializedGenres = genres.map((genre) => {
+      return GenreSerializer.getSummary(genre)
+    })
     return res.status(200).json({ genres: serializedGenres })
   } catch (error) {
     return res.status(500).json({ errors: error })

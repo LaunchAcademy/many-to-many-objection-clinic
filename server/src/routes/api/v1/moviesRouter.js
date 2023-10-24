@@ -1,5 +1,4 @@
 import express from "express"
-import objection from "objection"
 
 import { Movie } from "../../../models/index.js"
 
@@ -14,7 +13,10 @@ moviesRouter.use("/:movieId/reviews", movieReviewsRouter)
 moviesRouter.get("/", async (req, res) => {
   try {
     const movies = await Movie.query()
-    const serializedMovies = movies.map(movie => MovieSerializer.getSummary(movie))
+    const serializedMovies = movies.map((movie) => {
+      return MovieSerializer.getSummary(movie)
+    })
+
     return res.status(200).json({ movies: serializedMovies })
   } catch (error) {
     return res.status(500).json({ errors: error })

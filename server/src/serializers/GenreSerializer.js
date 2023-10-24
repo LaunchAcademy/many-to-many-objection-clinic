@@ -19,7 +19,14 @@ class GenreSerializer {
     }
 
     const movies = await genre.$relatedQuery("movies")
-    const serializedMovies = await Promise.all(movies.map(async movie => await MovieSerializer.getSummaryWithActors(movie)))
+    
+    console.log("before promise.all")
+    const serializedMovies = await Promise.all(movies.map(async movie => {
+      console.log("inside promise.all")
+      return await MovieSerializer.getSummaryWithActors(movie)
+    }))
+    console.log("after promise.all")
+
     serializedGenre.movies = serializedMovies
 
     return serializedGenre

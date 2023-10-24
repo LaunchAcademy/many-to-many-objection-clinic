@@ -19,9 +19,10 @@ class ActorSerializer {
     }
 
     const movies = await actor.$relatedQuery("movies")
-    const serializedMovies = await Promise.all(
-      movies.map(async (movie) => await MovieSerializer.getSummary(movie))
-    )
+    const serializedMovies = movies.map((movie) => {
+      return MovieSerializer.getSummary(movie)
+    })
+    
     serializedActor.movies = serializedMovies
 
     return serializedActor

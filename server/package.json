@@ -19,7 +19,7 @@
   "version": "0.0.1",
   "name": "many-to-many-objection-clinic-server",
   "engines": {
-    "node": "^14.15"
+    "node": "^16.18"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

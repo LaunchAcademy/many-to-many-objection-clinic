@@ -20,7 +20,9 @@ class MovieSerializer {
     }
 
     const actors = await movie.$relatedQuery("actors")
-    const serializedActors = actors.map((actor) => ActorSerializer.getSummary(actor))
+    const serializedActors = actors.map((actor) => {
+      return ActorSerializer.getSummary(actor)
+    })
     serializedMovie.actors = serializedActors
 
     return serializedMovie
@@ -34,11 +36,15 @@ class MovieSerializer {
     }
 
     const actors = await movie.$relatedQuery("actors")
-    const serializedActors = actors.map((actor) => ActorSerializer.getSummary(actor))
+    const serializedActors = actors.map((actor) => {
+      return ActorSerializer.getSummary(actor)
+    })
     serializedMovie.actors = serializedActors
 
     const reviews = await movie.$relatedQuery("reviews")
-    const serializedReviews = reviews.map((review) => ReviewSerializer.getSummary(review))
+    const serializedReviews = reviews.map((review) => {
+      return ReviewSerializer.getSummary(review)
+    })
     serializedMovie.reviews = serializedReviews
 
     return serializedMovie

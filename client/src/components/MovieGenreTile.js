@@ -4,9 +4,9 @@ import { Link } from "react-router-dom"
 const MovieTile = ({ id, title, actors }) => {
   const actorList = actors.map((actor, index) => {
     if (index === actors.length - 1) {
-      return <li>{actor.firstName} {actor.lastName}</li>
+      return <li key={actor.id}>{actor.firstName} {actor.lastName}</li>
     } else {
-      return <li>{actor.firstName} {actor.lastName},</li>
+      return <li key={actor.id}>{actor.firstName} {actor.lastName},</li>
     }
   })
 
