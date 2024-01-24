@@ -4,6 +4,7 @@ import MovieTile from "./MovieTile.js"
 
 const ActorShowPage = (props) => {
   const [actor, setActor] = useState({ movies: [] })
+  console.log(actor)
 
   const id = props.match.params.id
 
@@ -16,6 +17,7 @@ const ActorShowPage = (props) => {
         throw error
       }
       const actorData = await response.json()
+      // debugger
       setActor(actorData.actor)
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
