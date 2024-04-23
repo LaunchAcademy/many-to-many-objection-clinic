@@ -16,6 +16,7 @@ const MovieShowPage = (props) => {
         throw error
       }
       const movieData = await response.json()
+      console.log(movieData)
       setMovie(movieData.movie)
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)

@@ -18,9 +18,9 @@ moviesRouter.get("/", async (req, res) => {
 moviesRouter.get("/:id", async (req, res) => {
   try {
     // populate the movie and its actors
-    const movie = { actors: [] }
-    // not completed
-
+    const movieId = req.params.id
+    const movie = await Movie.query().findById(movieId)
+    movie.actors = await movie.$relatedQuery("actors")
 
     return res.status(200).json({ movie: movie })
   } catch (error) {
